@@ -68,6 +68,8 @@ export function convertToIndianRupeesWords(amount: number): string {
     return words.toUpperCase() + ' ONLY';
 }
 export const formatAmount = (amount: number) => {
+    console.log("amount", amount);
+
     return amount.toLocaleString("en-IN");
 };
 

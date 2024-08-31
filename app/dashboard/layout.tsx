@@ -30,7 +30,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         My Application
       </Typography>
       <List>
-        {["Clients", "Invoices"].map((text) => (
+        {["Clients", "Invoices", "Challans"].map((text) => (
           <ListItem
             button
             key={text}

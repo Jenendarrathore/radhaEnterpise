@@ -70,7 +70,7 @@ const NewInvoicePage = () => {
 
   const initialValues = {
     invoiceNumber: "",
-    challanNumber: "",
+    challan: [],
     invoiceDate: "",
     client: "",
     paymentTerms: "",
@@ -91,7 +91,7 @@ const NewInvoicePage = () => {
   };
   const validationSchema = Yup.object({
     invoiceNumber: Yup.number().required("Invoice Number is required."),
-    challanNumber: Yup.number().required("Challan Number is required."),
+    challan: Yup.array().required("Challan Number is required."),
     invoiceDate: Yup.date().required("Invoice Date is required."),
     client: Yup.string().required("Client is required."),
     paymentTerms: Yup.string().required("Payment Terms are required."),
@@ -125,7 +125,12 @@ const NewInvoicePage = () => {
       return Number(number.toFixed(decimals));
     };
 
-    const goodsAmount = values.goodsQuantity * values.goodsRate;
+    let goodsAmount = 0;
+
+    for (let i = 0; i < values.challan.length; i++) {
+      const challan = values.challan[i];
+      goodsAmount = goodsAmount + challan.challanAmount;
+    }
 
     const cgstAmount = (goodsAmount * values.cgstRate) / 100;
     const sgstAmount = (goodsAmount * values.sgstRate) / 100;
@@ -159,10 +164,6 @@ const NewInvoicePage = () => {
     }
   }, [isSuccess, newInvoice]);
 
-  const handleChallanChange = (event, value) => {
-    // Extract the IDs of selected challans
-  };
-
   return (
     <div>
       <h1>Generate new Invoice</h1>
@@ -182,9 +183,12 @@ const NewInvoicePage = () => {
                 //   state: values.state,
                 //   code: values.code,
                 // };
-                console.log("values", values);
 
-                // await createInvoice(values).unwrap();
+                const challanObjectids = values.challan.map((e: any) => e.id);
+                const data = { ...values, challan: challanObjectids };
+                console.log("data", data);
+
+                await createInvoice(data).unwrap();
                 toast.success("Client Created");
 
                 // Handle success (e.g., show a success message, reset the form, etc.)
@@ -222,7 +226,7 @@ const NewInvoicePage = () => {
                 "totalTaxAmountInWords",
                 totalTaxAmountInWords
               );
-            }, [formik.values.challanNumber]);
+            }, [formik.values.challan]);
 
             return (
               <Form>
@@ -246,21 +250,22 @@ const NewInvoicePage = () => {
                       }
                     />
                   </Grid>
+                  {console.log(formik.errors)}
                   {/* <Grid size={{ xs: 12, md: 6 }}>
                     <TextField
                       type="number"
-                      id="challanNumber"
-                      name="challanNumber"
+                      id="challan"
+                      name="challan"
                       label="Challan Number"
                       variant="filled"
                       fullWidth
                       size="small"
-                      value={formik.values.challanNumber}
+                      value={formik.values.challan}
                       onChange={formik.handleChange}
-                      error={isFormFieldValid(formik, "challanNumber")}
+                      error={isFormFieldValid(formik, "challan")}
                       helperText={
-                        isFormFieldValid(formik, "challanNumber")
-                          ? formik.errors.challanNumber
+                        isFormFieldValid(formik, "challan")
+                          ? formik.errors.challan
                           : ""
                       }
                     />
@@ -271,15 +276,7 @@ const NewInvoicePage = () => {
                       options={challanOption}
                       getOptionLabel={(option) => option.label} // Adjust based on client data structure
                       onChange={(event, value: any) => {
-                        let totalAmount = 0;
-
-                        for (let i = 0; i < value.length; i++) {
-                          const challan = value[i];
-                          totalAmount = totalAmount + challan.challanAmount;
-                        }
-
-                        formik.setFieldValue("challanNumber", value);
-                        formik.setFieldValue("totalAmount", totalAmount);
+                        formik.setFieldValue("challan", value);
 
                         // onSelect(value);
                       }}

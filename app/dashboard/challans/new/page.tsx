@@ -31,8 +31,10 @@ import { useCreateBaleAndChallanMutation } from "@/redux/BalesApi";
 const NewChallanPage = () => {
   // const [createChallan, { isLoading, isSuccess, isError, error }] =
   //   useCreateChallanMutation();
-  const [createBaleAndChallan, { isLoading, isSuccess, isError, error }] =
-    useCreateBaleAndChallanMutation();
+  const [
+    createBaleAndChallan,
+    { isLoading, isSuccess, isError, error, data: newChallan },
+  ] = useCreateBaleAndChallanMutation();
 
   const initialValues = {
     client: "",
@@ -162,6 +164,13 @@ const NewChallanPage = () => {
   };
 
   // Function to update total meters for each lot and overall total meters
+
+  useEffect(() => {
+    if (isSuccess && newChallan) {
+      const newChallanId = newChallan._id; // Assuming your API returns the saved document
+      window.location.href = `/dashboard/invoices/new`;
+    }
+  }, [isSuccess, newChallan]);
 
   return (
     <div>

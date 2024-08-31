@@ -4,7 +4,7 @@ import { IClient } from "./ClientModel";
 
 export interface IInvoice extends Document {
     invoiceNumber: number,
-    challanNumber: [],
+    challan: any,
     invoiceDate: Date,
     paymentTerms: string,
     goodsSerialNumber: number,
@@ -27,7 +27,7 @@ export interface IInvoice extends Document {
 
 const InvoiceSchema: Schema = new Schema({
     invoiceNumber: Number,
-    challanNumber: [{ type: Schema.Types.ObjectId, ref: 'Challan' }], // Array of ObjectId references to Challan
+    challan: [{ type: Schema.Types.ObjectId, ref: 'Challan' }], // Array of ObjectId references to Challan
     invoiceDate: Date,
     paymentTerms: String,
     goodsSerialNumber: Number,

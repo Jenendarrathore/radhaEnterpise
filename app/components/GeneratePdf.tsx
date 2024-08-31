@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useGetInvoiceByIdQuery } from "@/redux/invoicesApi";
 import { formatAmount } from "@/helper/helper";
 import { Button } from "@mui/material";
+import moment from "moment";
 
 const GeneratePdf = ({ params }: any) => {
   const { data: session, status } = useSession();
@@ -19,6 +20,9 @@ const GeneratePdf = ({ params }: any) => {
     isLoading,
     isError,
   } = useGetInvoiceByIdQuery(params);
+
+  console.log("invoiceData", invoiceData);
+  console.log("error", error);
 
   const handleDownload = () => {
     const input = document.getElementById("booking_invoice");
@@ -59,9 +63,9 @@ const GeneratePdf = ({ params }: any) => {
         <div id="booking_invoice" className="invoive_mian_wrap">
           <div className="invoice_template_wrap">
             <div className="invoice_header">
-              <div className="invoice_logo_wrap">
+              {/* <div className="invoice_logo_wrap">
                 <img src="/images/invoice/invoice-logo.png" alt="Raheja" />
-              </div>
+              </div> */}
               <div className="invoice_address_wrap">
                 <h4 className="invoice_title">RADHA ENTERPRISES</h4>
                 <p className="invoice_gst">
@@ -96,7 +100,8 @@ const GeneratePdf = ({ params }: any) => {
                 <div className="invoice_payment">
                   <p>
                     <span>Receipt Date:</span>{" "}
-                    {invoiceData && invoiceData.invoiceDate}
+                    {invoiceData &&
+                      moment(invoiceData.invoiceDate).format("DD-MM-YYYY")}
                   </p>
 
                   <p>
@@ -139,18 +144,21 @@ const GeneratePdf = ({ params }: any) => {
                   </thead>
 
                   <tbody>
-                    <tr>
-                      <td>{invoiceData && invoiceData.goodsSerialNumber}</td>
-                      <td>{invoiceData && invoiceData.goodsDescription}</td>
-                      <td>996111</td>
-                      <td>{invoiceData && invoiceData.goodsQuantity}</td>
-                      <td>{invoiceData && invoiceData.goodsRate}</td>
-                      <td>-</td>
-                      <td>0</td>
-                      <td>
-                        {invoiceData && formatAmount(invoiceData.goodsAmount)}
-                      </td>
-                    </tr>
+                    {invoiceData &&
+                      invoiceData.challan.length > 0 &&
+                      invoiceData.challan.map((e: any, index) => (
+                        <tr>
+                          <td>{index + 1}</td>
+                          <td>{e.quality}</td>
+                          <td>996111</td>
+                          <td>{e.totalMeters}</td>
+                          <td>{e.rate}</td>
+                          <td>-</td>
+                          <td>0</td>
+                          <td>{formatAmount(e.challanAmount)}</td>
+                        </tr>
+                      ))}
+
                     <tr>
                       <td></td>
                       <td>CGST</td>

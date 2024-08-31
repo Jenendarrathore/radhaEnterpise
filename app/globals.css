@@ -111,7 +111,8 @@
 
 .invoice_header {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: center;
   align-items: center;
   padding: 30px;
   border-bottom: 1px solid #bcbcbc;
@@ -123,7 +124,7 @@
 }
 
 .invoice_address_wrap {
-  text-align: right;
+  text-align: center;
 }
 .invoice_address_wrap .invoice_title {
   font-family: var(--primary-font);
@@ -153,7 +154,7 @@
 }
 
 .invoice_body {
-  padding: 30px;
+  padding: 20px;
   border-bottom: 1px solid #bcbcbc;
 }
 
@@ -161,7 +162,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 .invoice_body_top .bill_to h5 {
   font-size: 15px;
@@ -199,12 +200,12 @@
   border-bottom: 1px dashed #d4d4d4;
 }
 .invoice_table thead tr th {
-  padding: 20px 15px;
+  padding: 10px 8px;
   font-size: 14px;
   font-weight: 600;
 }
 .invoice_table tbody tr td {
-  padding: 20px 15px;
+  padding: 10px 8px;
   font-size: 14px;
   border-bottom: 1px dashed #d4d4d4;
 }
@@ -238,7 +239,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 30px 0;
+  padding: 15px 20px 0;
 }
 .invoice_footer .invoice_footer_left {
   width: 65%;

@@ -10,9 +10,11 @@ export async function GET(req: Request) {
         await dbConnect();
         const url = new URL(req.url);
         const id = url.pathname.split('/').pop();
-        const invoiceData = await InvoiceModel.findById(id).populate('client');
+        const invoiceData = await InvoiceModel.findById(id).populate(['client', 'challan']);
         return NextResponse.json(invoiceData);
     } catch (error) {
+        console.log("error--------------------------------------------------------------------------------", error)
+
         return NextResponse.error();
     }
 }

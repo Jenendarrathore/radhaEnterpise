@@ -24,12 +24,11 @@ export default function ChallansResponsiveTable({ headings, data }: any) {
               key={i.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell>{i.partyName}</TableCell>
-              <TableCell>{i.address}</TableCell>
-              <TableCell>{i.gst}</TableCell>
-              <TableCell>{i.panNo}</TableCell>
-              <TableCell>{i.state}</TableCell>
-              <TableCell>{i.code}</TableCell>
+              <TableCell>{i.challanNumber}</TableCell>
+              <TableCell>{i.client.partyName}</TableCell>
+              <TableCell>{i.totalMeters}</TableCell>
+              <TableCell>{i.challanAmount}</TableCell>
+              <TableCell>{i.quality}</TableCell>
               {/* <TableCell align="right">{i.calories}</TableCell> */}
               {/* <TableCell align="right">{i.fat}</TableCell> */}
               {/* <TableCell align="right">{i.carbs}</TableCell> */}

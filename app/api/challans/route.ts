@@ -10,6 +10,8 @@ export async function GET() {
 
         return NextResponse.json(challans);
     } catch (error) {
+        console.log("errorr--------------------------------------", error);
+
         return NextResponse.error();
     }
 }

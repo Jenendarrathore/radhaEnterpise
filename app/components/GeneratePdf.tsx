@@ -146,12 +146,12 @@ const GeneratePdf = ({ params }: any) => {
                   <tbody>
                     {invoiceData &&
                       invoiceData.challan.length > 0 &&
-                      invoiceData.challan.map((e: any, index) => (
-                        <tr>
+                      invoiceData.challan.map((e: any, index: number) => (
+                        <tr key={e._id}>
                           <td>{index + 1}</td>
                           <td>{e.quality}</td>
                           <td>996111</td>
-                          <td>{e.totalMeters}</td>
+                          <td>{e.totalMeters} Mtrs.</td>
                           <td>{e.rate}</td>
                           <td>-</td>
                           <td>0</td>
@@ -238,11 +238,11 @@ const GeneratePdf = ({ params }: any) => {
               <table>
                 <thead>
                   <tr>
-                    <th rowspan="2">HSN/SAC</th>
-                    <th rowspan="2">Taxable Value</th>
-                    <th colspan="2">CGST</th>
-                    <th colspan="2">SGST/UTGST</th>
-                    <th rowspan="2">Total</th>
+                    <th rowSpan={2}>HSN/SAC</th>
+                    <th rowSpan={2}>Taxable Value</th>
+                    <th colSpan={2}>CGST</th>
+                    <th colSpan={2}>SGST/UTGST</th>
+                    <th rowSpan={2}>Total</th>
                   </tr>
                   <tr>
                     <th>Rate</th>

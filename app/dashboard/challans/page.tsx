@@ -23,7 +23,7 @@ const ChallansPage: React.FC = () => {
   return (
     <div>
       <h1>Challans</h1>
-      <Button variant="contained" href="/dashboard/challan/new">
+      <Button variant="contained" href="/dashboard/challans/new">
         New Challan
       </Button>
       <ChallansResponsiveTable

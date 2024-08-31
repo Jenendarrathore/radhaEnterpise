@@ -32,7 +32,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <List>
         {["Clients", "Invoices", "Challans"].map((text) => (
           <ListItem
-            button
+            
             key={text}
             component={Link}
             href={`/dashboard/${text.toLowerCase()}`}

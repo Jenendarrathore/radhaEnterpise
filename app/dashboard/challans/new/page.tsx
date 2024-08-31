@@ -137,7 +137,7 @@ const NewChallanPage = () => {
   }, [clients]);
 
   // Calculate total meters for a lot
-  const calculateTotalBaleMeters = (entries): number => {
+  const calculateTotalBaleMeters = (entries: any): any => {
     let total = 0;
 
     for (const entry of entries) {
@@ -147,7 +147,7 @@ const NewChallanPage = () => {
     return total;
   };
 
-  const calculateTotalMeters = (lots): number => {
+  const calculateTotalMeters = (lots: any): any => {
     let total = 0;
 
     if (lots) {
@@ -275,7 +275,7 @@ const NewChallanPage = () => {
                 <Grid size={{ xs: 12, md: 6 }}>
                   <Autocomplete
                     options={clientOption}
-                    getOptionLabel={(option) => option.label} // Adjust based on client data structure
+                    getOptionLabel={(option: any) => option.label} // Adjust based on client data structure
                     onChange={(event, value: any) => {
                       console.log("value", value);
 
@@ -477,6 +477,7 @@ const NewChallanPage = () => {
                                       `lots[${lotIndex}].baleCount`
                                     )}
                                     helperText={
+                                      //@ts-ignore
                                       formik.errors.lots?.[lotIndex]?.baleCount
                                     }
                                   />
@@ -558,9 +559,10 @@ const NewChallanPage = () => {
                                               formik,
                                               `lots[${lotIndex}].entries[${entryIndex}].meters`
                                             )}
+                                            //@ts-ignore
                                             helperText={
-                                              formik.errors.lots?.[lotIndex]
-                                                ?.entries?.[entryIndex]?.meters
+                                              //@ts-ignore
+                                              formik.errors.lots?.[lotIndex].entries?.[entryIndex]?.meters
                                             }
                                           />
                                         </Grid>

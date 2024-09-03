@@ -31,8 +31,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </Typography>
       <div>
         {["Clients", "Invoices", "Challans"].map((text) => (
-         <p>
-         <Link href={`/dashboard/${text.toLowerCase()}`}>{text}</Link>
+         <p key={text}>
+         <Link  href={`/dashboard/${text.toLowerCase()}`}>{text}</Link>
          </p>
           // <ListItem
             

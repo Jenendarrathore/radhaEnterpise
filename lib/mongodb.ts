@@ -14,6 +14,11 @@ const dbConnect = async () => {
         });
 
         console.log('Database connection successful');
+        require('./models/BaleEntryModel');
+        require('./models/BaleModel');
+        require('./models/ChallanModel');
+        require('./models/ClientModel');
+        require('./models/InvoiceModel');
     } catch (error) {
         console.error('Database connection error:', error);
         // process.exit(1); // Exit the process with an error code if the connection fails

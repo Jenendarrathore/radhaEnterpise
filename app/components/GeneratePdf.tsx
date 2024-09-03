@@ -39,6 +39,10 @@ const GeneratePdf = ({ params }: any) => {
     }
   };
 
+  console.log(invoiceData?.client);
+  console.log(invoiceData?.client);
+  
+
   return (
     <>
       <div className="invoice_btn_wrap">
@@ -74,7 +78,7 @@ const GeneratePdf = ({ params }: any) => {
                   GST Number: <span>27DHOPR3745H1ZR</span>
                 </p>
                 <p className="invoice_address">
-                  B/108,Rajni Gandha,Sanghvi Garden,
+                  B/108,Rajani Gandha,Sanghvi Garden,
                   <br />
                   Manpada Road,Kalyan,
                   <br />
@@ -100,6 +104,8 @@ const GeneratePdf = ({ params }: any) => {
                         ' ' +
                         invoiceData?.client?.code}
                   </p>
+                  <p className="bill_name">
+                  GST - {invoiceData?.client?.gst}</p>
                 </div>
                 <div className="invoice_payment">
                   <p>

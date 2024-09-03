@@ -164,11 +164,18 @@
   align-items: center;
   margin-bottom: 20px;
 }
+.invoice_body_top .bill_to{
+  max-width:50% ;
+}
 .invoice_body_top .bill_to h5 {
   font-size: 15px;
   line-height: 18px;
   font-weight: 600;
   margin-bottom: 5px;
+}
+.bodyHeading{
+text-align: center;
+font-weight: 800;
 }
 .invoice_body_top .bill_to .bill_name {
   font-size: 14px;

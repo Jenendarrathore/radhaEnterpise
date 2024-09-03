@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": " next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -32,8 +32,10 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.2.7",
     "@types/node": "^20",
     "@types/react-redux": "^7.1.33",
+    "cross-env": "^7.0.3",
     "eslint": "^8",
     "eslint-config-next": "14.2.7",
     "postcss": "^8",

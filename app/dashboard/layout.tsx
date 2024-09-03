@@ -29,18 +29,21 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <Typography variant="h6" sx={{ my: 2 }}>
         My Application
       </Typography>
-      <List>
+      <div>
         {["Clients", "Invoices", "Challans"].map((text) => (
-          <ListItem
+         <p>
+         <Link href={`/dashboard/${text.toLowerCase()}`}>{text}</Link>
+         </p>
+          // <ListItem
             
-            key={text}
-            component={Link}
-            href={`/dashboard/${text.toLowerCase()}`}
-          >
-            <ListItemText primary={text} />
-          </ListItem>
+          //   key={text}
+          //   component={Link}
+          //   href={`/dashboard/${text.toLowerCase()}`}
+          // >
+          //   <ListItemText primary={text} />
+          // </ListItem>
         ))}
-      </List>
+      </div>
     </Box>
   );
   return (

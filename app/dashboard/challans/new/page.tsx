@@ -57,8 +57,7 @@ const NewChallanPage = () => {
       .max(100, "Client name must not exceed 100 characters"),
 
     challanNumber: Yup.string()
-      .required("Challan number is required")
-      .matches(/^\d+$/, "Challan number must be numeric"),
+      .required("Challan number is required"),
 
     totalMeters: Yup.number(),
     // .required("Total meters is required")
@@ -168,7 +167,7 @@ const NewChallanPage = () => {
   useEffect(() => {
     if (isSuccess && newChallan) {
       const newChallanId = newChallan._id; // Assuming your API returns the saved document
-      window.location.href = `/dashboard/invoices/new`;
+      window.location.href = `/dashboard/challans`;
     }
   }, [isSuccess, newChallan]);
 
@@ -352,7 +351,7 @@ const NewChallanPage = () => {
                     >
                       <MenuItem value={36}>36</MenuItem>
                       <MenuItem value={44}>44</MenuItem>
-                      <MenuItem value={48}>48</MenuItem>
+                      <MenuItem value={58}>58</MenuItem>
                     </Select>
                     <FormHelperText>
                       {isFormFieldValid(formik, "width")
@@ -559,10 +558,9 @@ const NewChallanPage = () => {
                                               formik,
                                               `lots[${lotIndex}].entries[${entryIndex}].meters`
                                             )}
-                                            //@ts-ignore
                                             helperText={
-                                              //@ts-ignore
-                                              formik.errors.lots?.[lotIndex].entries?.[entryIndex]?.meters
+                                            //@ts-ignore
+                                              formik.errors.lots?.[lotIndex]?.entries?.[entryIndex]?.meters
                                             }
                                           />
                                         </Grid>

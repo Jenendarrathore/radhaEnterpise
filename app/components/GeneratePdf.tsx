@@ -1,13 +1,14 @@
-"use client";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
-import { useSession } from "next-auth/react";
-import { useGetInvoiceByIdQuery } from "@/redux/invoicesApi";
-import { formatAmount } from "@/helper/helper";
-import { Button } from "@mui/material";
-import moment from "moment";
+'use client';
+import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { useSession } from 'next-auth/react';
+import { useGetInvoiceByIdQuery } from '@/redux/invoicesApi';
+import { formatAmount } from '@/helper/helper';
+import { Button } from '@mui/material';
+import moment from 'moment';
+import Link from 'next/link';
 
 const GeneratePdf = ({ params }: any) => {
   const { data: session, status } = useSession();
@@ -21,19 +22,19 @@ const GeneratePdf = ({ params }: any) => {
     isError,
   } = useGetInvoiceByIdQuery(params);
 
-  console.log("invoiceData", invoiceData);
-  console.log("error", error);
+  console.log('invoiceData', invoiceData);
+  console.log('error', error);
 
   const handleDownload = () => {
-    const input = document.getElementById("booking_invoice");
+    const input = document.getElementById('booking_invoice');
     if (input) {
       html2canvas(input).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
+        const imgData = canvas.toDataURL('image/png');
 
         const pdf = new jsPDF();
         const pdfWidth = pdf.internal.pageSize.getWidth();
         pdf.addImage(imgData, 0, 0, pdfWidth, 0);
-        pdf.save(`invoice_${params.invoiceid}.pdf`);
+        pdf.save(`invoice_${invoiceData.invoiceNumber}.pdf`);
       });
     }
   };
@@ -42,14 +43,15 @@ const GeneratePdf = ({ params }: any) => {
     <>
       <div className="invoice_btn_wrap">
         <div className="btn_item">
-          <Button variant="contained" href="/dashboard/invoices">
-            View All Invoices
-          </Button>
+          <Link href="/dashboard/invoices">
+            <Button variant="contained">View All Invoices</Button>
+          </Link>
         </div>
 
         {/* {displayInvoice ? ( */}
         <>
           <div className="btn_item">
+            
             <Button variant="contained" onClick={handleDownload}>
               Download Receipt
             </Button>
@@ -82,6 +84,8 @@ const GeneratePdf = ({ params }: any) => {
                 </p>
               </div>
             </div>
+            <div className="bodyHeading">Tax Invoice</div>
+
             <div className="invoice_body">
               <div className="invoice_body_top">
                 <div className="bill_to">
@@ -93,25 +97,25 @@ const GeneratePdf = ({ params }: any) => {
                     {invoiceData && invoiceData.client?.address},<br />
                     {invoiceData &&
                       invoiceData?.client?.state +
-                        " " +
+                        ' ' +
                         invoiceData?.client?.code}
                   </p>
                 </div>
                 <div className="invoice_payment">
                   <p>
-                    <span>Receipt Date:</span>{" "}
+                    <span>Receipt Date:</span>{' '}
                     {invoiceData &&
-                      moment(invoiceData.invoiceDate).format("DD-MM-YYYY")}
+                      moment(invoiceData.invoiceDate).format('DD-MM-YYYY')}
                   </p>
 
                   <p>
-                    <span>Invoice No:</span>{" "}
+                    <span>Invoice No:</span>{' '}
                     {invoiceData && invoiceData.invoiceNumber}
                   </p>
-                  <p>
+                  {/* <p>
                     <span>Challan No:</span>{" "}
                     {invoiceData && invoiceData.challanNumber}
-                  </p>
+                  </p> */}
                 </div>
               </div>
               <div className="invoice_booking_details">
@@ -133,6 +137,8 @@ const GeneratePdf = ({ params }: any) => {
                   <thead>
                     <tr>
                       <th>Sr no</th>
+                      <th>Challan No</th>
+
                       <th>Description of Goods</th>
                       <th>Hsn/Sac</th>
                       <th>Quantity</th>
@@ -149,6 +155,7 @@ const GeneratePdf = ({ params }: any) => {
                       invoiceData.challan.map((e: any, index: number) => (
                         <tr key={e._id}>
                           <td>{index + 1}</td>
+                          <td>{e.challanNumber}</td>
                           <td>{e.quality}</td>
                           <td>996111</td>
                           <td>{e.totalMeters} Mtrs.</td>
@@ -161,6 +168,8 @@ const GeneratePdf = ({ params }: any) => {
 
                     <tr>
                       <td></td>
+                      <td></td>
+
                       <td>CGST</td>
                       <td></td>
                       <td></td>
@@ -172,6 +181,8 @@ const GeneratePdf = ({ params }: any) => {
                       </td>
                     </tr>
                     <tr>
+                      <td></td>
+
                       <td></td>
                       <td>SGST</td>
                       <td></td>
@@ -185,6 +196,8 @@ const GeneratePdf = ({ params }: any) => {
                     </tr>
                     <tr>
                       <td></td>
+                      <td></td>
+
                       <td>Round off</td>
                       <td></td>
                       <td></td>
@@ -197,16 +210,7 @@ const GeneratePdf = ({ params }: any) => {
                     <tr>
                       <td></td>
                       <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
 
-                    <tr>
-                      <td></td>
                       <td>Total</td>
                       <td></td>
                       <td></td>
@@ -230,7 +234,7 @@ const GeneratePdf = ({ params }: any) => {
                 </div>
                 <div className="invoice_payment">
                   <p>
-                    <span>Total Amount:</span> ₹{" "}
+                    <span>Total Amount:</span> ₹{' '}
                     {invoiceData && formatAmount(invoiceData.totalAmount)}
                   </p>
                 </div>
@@ -290,7 +294,7 @@ const GeneratePdf = ({ params }: any) => {
               </table>
               <br></br>
               <div className="invoice_body_top">
-                <div className="bill_to">
+                <div className="">
                   <h5>Tax Amount in words</h5>
                   <p className="bill_name">
                     ₹ {invoiceData && invoiceData.totalTaxAmountInWords}
@@ -298,11 +302,11 @@ const GeneratePdf = ({ params }: any) => {
                 </div>
               </div>
               <div className="invoice_body_top">
-                <div className="bill_to">
-                  <p className="bill_name">Companys PAN :DHOPR3745H</p>
-                </div>
+                <div className="bill_to"></div>
                 <div className="invoice_payment">
                   <h5>Companys Bank Details</h5>
+                  <p className="bill_name">Companys PAN :DHOPR3745H</p>
+
                   <p>
                     A/c Holders Name : RADHA ENTERPRISES <br />
                     Bank Name : UNION BANK <br />
@@ -320,7 +324,7 @@ const GeneratePdf = ({ params }: any) => {
                   <p className="rera_dis">
                     We declare that this invoice shows the actual price of the
                     goods described and that all particulars are true and
-                    correct{" "}
+                    correct{' '}
                   </p>
                 </div>
               </div>
@@ -334,7 +338,7 @@ const GeneratePdf = ({ params }: any) => {
               </div>
               <div className="invoice_footer_right">
                 <h5>For RADHA ENTERPRISES</h5>
-                <p>Authorised Signatory </p>{" "}
+                <p>Authorised Signatory </p>{' '}
               </div>
             </div>
             <div className="invoice_copy"></div>

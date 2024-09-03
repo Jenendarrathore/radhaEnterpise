@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useGetChallansQuery } from "@/redux/challansApi";
 import ChallansResponsiveTable from "@/app/components/ChallansResponsiveTable";
 import { Button } from "@mui/material";
+import Link from "next/link";
 
 const ChallansPage: React.FC = () => {
   // const router = useRouter();
@@ -23,9 +24,12 @@ const ChallansPage: React.FC = () => {
   return (
     <div>
       <h1>Challans</h1>
-      <Button variant="contained" href="/dashboard/challans/new">
-        New Challan
+       <Link href="/dashboard/challans/new">
+      <Button variant="contained" >
+      New Challan
       </Button>
+      </Link>
+        
       <ChallansResponsiveTable
         headings={headings}
         data={challans}

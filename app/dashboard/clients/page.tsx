@@ -4,6 +4,8 @@ import React from "react";
 import { useRouter } from "next/router";
 import { useGetClientsQuery } from "@/redux/clientsApi";
 import CleintsResponsiveTable from "@/app/components/ClientsResponsiveTable";
+import { Button } from "@mui/material";
+import Link from "next/link";
 
 const ClientsPage: React.FC = () => {
   // const router = useRouter();
@@ -19,6 +21,10 @@ const ClientsPage: React.FC = () => {
   return (
     <div>
       <h1>Clients</h1>
+      <Link href="/dashboard/clients/new">
+            <Button variant="contained">New Client</Button>
+          </Link>
+
       <CleintsResponsiveTable
         headings={headings}
         data={clients}
